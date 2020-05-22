@@ -2,8 +2,10 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.*;
@@ -26,7 +28,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import  DTO.UserDTO ;
 import BLL.UserBLL;
-import GUI.subForm;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern; 
+import GUI.*;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -58,20 +62,33 @@ public class Login extends JFrame {
 	public Login() {
 		super("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 200, 300, 300);
+		setBounds(500, 200, 300, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.setBackground(Color.BLACK);
 		this.setLocationRelativeTo(null);
-		setContentPane(contentPane);
 		
 		panelNorth();
+		panelCenter();
 		panelSouth();
+		setContentPane(contentPane);
 }
 	public void addControl() {
 	}
 	public void panelNorth() {
+		JPanel pn0 = new JPanel();
+		contentPane.add(pn0, BorderLayout.NORTH);
+		pn0.setSize(new Dimension(100,340));
+		pn0.setBackground(Color.pink);
+		pn0.add(lblWelcome());
+	}
+	private JLabel lblWelcome() {
+		JLabel welcome = new JLabel("Chương trình quản lý học sinh");
+		welcome.setFont(new Font("Arial", Font.BOLD, 18));
+		return welcome;
+	}
+	public void panelCenter() {
 		JPanel pn1 = new JPanel();
 		contentPane.add(pn1, BorderLayout.CENTER);
 		pn1.setBackground(Color.yellow);
@@ -118,31 +135,45 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(txtUserName.getText().equals("") || txtPassword.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin","Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin!","Error", JOptionPane.ERROR_MESSAGE);
 				}
-				else {
-					try {
-						Class.forName("com.mysql.jdbc.Driver");
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/user","root","");
-						PreparedStatement ps = conn.prepareStatement("SELECT * FROM user\n"+"WHERE userName=? AND Password=?");
-						ps.setString(1, txtUserName.getText());
-						ps.setString(2, txtPassword.getText());
-						ResultSet rs = ps.executeQuery();
-						if(rs.next()){
-							JOptionPane.showMessageDialog(null, "Đăng nhập thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Đăng nhập không thành công", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				else {			       
+				        	try {
+					        		Class.forName("com.mysql.jdbc.Driver");
+									Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+					        		PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE userName=? AND password=?");
+						        	ps.setString(1, txtUserName.getText());
+									ps.setString(2, txtPassword.getText());
+									//int x = ps.executeUpdate();
+									ResultSet rs = ps.executeQuery();
+									if(rs.next()){
+										String str = rs.getString("role");
+										if(str.equalsIgnoreCase("HS")) {
+											JOptionPane.showMessageDialog(null, "Học sinh đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
+											Form_HS hocsinh = new Form_HS();
+											hocsinh.setVisible(true);
+											setVisible(false);
+										}
+										if(str.equalsIgnoreCase("GV")){
+												JOptionPane.showMessageDialog(null, "Giáo viên đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
+										}
+										if(str.equalsIgnoreCase("AD")){
+													JOptionPane.showMessageDialog(null, "Admin đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
+										}
+									}
+									else {
+										JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+									}
+				        	}
+							catch (Exception e2) {
+								// TODO: handle exception
+								JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+							}    		       
 				}
 			}
 		});
 		return btnlogin;
-		}
+	}
 	private JButton CLOSE() {
 		JButton btnclose = new JButton("Close");
 		btnclose.addActionListener(new ActionListener() {
