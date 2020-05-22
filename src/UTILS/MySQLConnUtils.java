@@ -1,14 +1,15 @@
 package UTILS;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class MySQLConnUtils {
 	public static Connection getMYSQLConnection() throws SQLException,
 		ClassNotFoundException {
 		String hostname = "Localhost";
-		String dbname = "testdb";
+		String dbname = "user";
 		String username = "root";
-		String password = "1234";
+		String password = "";
 		return getMySQLConnection(hostname, dbname, username, password);
 		
 	}
@@ -19,6 +20,5 @@ public class MySQLConnUtils {
 		return conn;
 		
 	}
-	
 	
 }

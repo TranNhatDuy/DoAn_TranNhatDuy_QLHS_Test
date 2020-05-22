@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import DTO.UserDTO;
+
 import UTILS.ConnectionUtils;
 
 
@@ -27,10 +28,16 @@ public class UserDAL {
 	}*/
 	public ResultSet GetUserByNameNPass(UserDTO userDTO) throws ClassNotFoundException{
 		ResultSet result = null;
-		String sql = "Select * from user where username = ? and password = ?";
+		String sql = "Select * from user where userName = ? and password = ?";
 		try {
-			dbUtils =  new ConnectionUtils();
+			dbUtils = new ConnectionUtils();
 			con = dbUtils.getMyConnection();
+			
+			preparedStatement=con.prepareStatement(sql);
+			preparedStatement.setString(1, userDTO.getUserName());
+			preparedStatement.setString(2, userDTO.getPassword());
+			
+			result = preparedStatement.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			}
