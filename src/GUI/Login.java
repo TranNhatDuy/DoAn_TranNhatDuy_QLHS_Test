@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import com.microsoft.sqlserver.jdbc.dataclassification.Label;
@@ -34,10 +35,9 @@ import GUI.*;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lblUserName;
 	private JTextField txtUserName;
-	private JTextField txtPassword;
-//	private subForm thongbao;
+	private JPasswordField txtPassword;
+
 	/**
 	 * Launch the application.
 	 */
@@ -99,7 +99,7 @@ public class Login extends JFrame {
 
 	}
 	private JLabel lblUser() {
-		lblUserName = new JLabel("User Name");
+		JLabel lblUserName = new JLabel("User Name");
 		lblUserName.setBorder(new EmptyBorder(30,0,10,160));
 		return  lblUserName;
 	}
@@ -116,7 +116,7 @@ public class Login extends JFrame {
 		return lblPassword;
 	}
 	private JTextField Password() {
-		txtPassword = new JTextField();
+		txtPassword = new JPasswordField();
 		txtPassword.setColumns(20);
 		return txtPassword;
 	}
@@ -139,11 +139,16 @@ public class Login extends JFrame {
 				}
 				else {			       
 				        	try {
+				        			String strPass = "";
+				        			char[] a = txtPassword.getPassword();
+				        			for(int i = 0; i < a.length; i++) {
+				        				strPass= strPass + a[i];
+				        			}
 					        		Class.forName("com.mysql.jdbc.Driver");
 									Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 					        		PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE userName=? AND password=?");
 						        	ps.setString(1, txtUserName.getText());
-									ps.setString(2, txtPassword.getText());
+									ps.setString(2, strPass);
 									//int x = ps.executeUpdate();
 									ResultSet rs = ps.executeQuery();
 									if(rs.next()){
