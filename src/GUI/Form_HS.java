@@ -106,11 +106,14 @@ public class Form_HS extends JFrame {
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setToolTipText("File");
-		menuBar.setBounds(0, 0, 145, 38);
+		menuBar.setBounds(0, 0, 653, 38);
 		panel_1.add(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
 		
 		
 		JPanel panel_2 = new JPanel();
