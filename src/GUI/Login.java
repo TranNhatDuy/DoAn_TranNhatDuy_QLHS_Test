@@ -35,8 +35,8 @@ import GUI.*;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUserName;
-	private JPasswordField txtPassword;
+	public static JTextField txtUserName;
+	public static JPasswordField txtPassword;
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -106,7 +106,7 @@ public class Login extends JFrame {
 		return  lblUserName;
 	}
 	
-	private JTextField UserName() {
+	public JTextField UserName() {
 		txtUserName = new JTextField();
 		txtUserName.setColumns(20);
 		return txtUserName;
@@ -155,6 +155,7 @@ public class Login extends JFrame {
 //									UserBLL userBLL = new UserBLL();
 //									UserDTO userDTO = new UserDTO(txtUserName.getText(), strPass);
 //									rs = userBLL.LoGin(userDTO);
+//									System.out.println(rs);
 									if(rs.next()){
 										String str = rs.getString("role");
 										if(str.equalsIgnoreCase("HS")) {
@@ -178,6 +179,7 @@ public class Login extends JFrame {
 							catch (Exception e2) {
 								// TODO: handle exception
 								JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+								System.out.println(rs);
 							}    		       
 				}
 			}
@@ -216,13 +218,14 @@ public class Login extends JFrame {
 		});
 		return btnrefresh;
 	}
-	public String getTextUserName() {
-		String s_name = txtUserName.getText();
-		return s_name;
-	}
-	public String getTextPass() {
-		String s_pass = txtPassword.getText();
-		return s_pass;
-	}
+//	public JLabel setName(JLabel label) {
+//		String s_name = txtUserName.getText();
+//		label.setText(s_name);
+//		return label;
+//	}
+//	public String getTextPass() {
+//		String s_pass = txtPassword.getText();
+//		return s_pass;
+//	}
 	
 }
