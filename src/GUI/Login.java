@@ -37,7 +37,9 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUserName;
 	private JPasswordField txtPassword;
-
+	Connection conn = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
 	/**
 	 * Launch the application.
 	 */
@@ -149,15 +151,18 @@ public class Login extends JFrame {
 					        		PreparedStatement ps = conn.prepareStatement("SELECT * FROM user WHERE userName=? AND password=?");
 						        	ps.setString(1, txtUserName.getText());
 									ps.setString(2, strPass);
-									//int x = ps.executeUpdate();
 									ResultSet rs = ps.executeQuery();
+//									UserBLL userBLL = new UserBLL();
+//									UserDTO userDTO = new UserDTO(txtUserName.getText(), strPass);
+//									rs = userBLL.LoGin(userDTO);
 									if(rs.next()){
 										String str = rs.getString("role");
 										if(str.equalsIgnoreCase("HS")) {
 											JOptionPane.showMessageDialog(null, "Học sinh đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
 											Form_HS hocsinh = new Form_HS();
 											hocsinh.setVisible(true);
-											setVisible(false);
+											//setVisible(false);
+											txtUserName.setText(rs.getString("role"));
 										}
 										if(str.equalsIgnoreCase("GV")){
 												JOptionPane.showMessageDialog(null, "Giáo viên đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -210,6 +215,14 @@ public class Login extends JFrame {
 			}
 		});
 		return btnrefresh;
+	}
+	public String getTextUserName() {
+		String s_name = txtUserName.getText();
+		return s_name;
+	}
+	public String getTextPass() {
+		String s_pass = txtPassword.getText();
+		return s_pass;
 	}
 	
 }
