@@ -49,8 +49,9 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					final Login frame = new Login();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -101,8 +102,8 @@ public class Login extends JFrame {
 
 	}
 	private JLabel lblUser() {
-		JLabel lblUserName = new JLabel("User Name");
-		lblUserName.setBorder(new EmptyBorder(30,0,10,160));
+		JLabel lblUserName = new JLabel("Tên đăng nhập");
+		lblUserName.setBorder(new EmptyBorder(30,0,10,140));
 		return  lblUserName;
 	}
 	
@@ -113,8 +114,8 @@ public class Login extends JFrame {
 	}
 	
 	private JLabel lblPass() {
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBorder(new EmptyBorder(20,0,10,165));
+		JLabel lblPassword = new JLabel("Mật Khẩu");
+		lblPassword.setBorder(new EmptyBorder(20,0,10,169));
 		return lblPassword;
 	}
 	private JTextField Password() {
@@ -130,14 +131,14 @@ public class Login extends JFrame {
 		pn2.add(REFRESH());
 	}
 	private JButton LOGIN() {
-		JButton btnlogin = new JButton("Login");
+		JButton btnlogin = new JButton("Đăng nhập");
 		btnlogin.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(txtUserName.getText().equals("") || txtPassword.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin!","Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đủ thông tin!","Lỗi", JOptionPane.ERROR_MESSAGE);
 				}
 				else {			       
 				        	try {
@@ -163,7 +164,7 @@ public class Login extends JFrame {
 											Form_HS hocsinh = new Form_HS();
 											hocsinh.setVisible(true);
 											//setVisible(false);
-											txtUserName.setText(rs.getString("role"));
+											//txtUserName.setText(rs.getString("role"));
 										}
 										if(str.equalsIgnoreCase("GV")){
 												JOptionPane.showMessageDialog(null, "Giáo viên đăng nhập thành công.", "Message", JOptionPane.INFORMATION_MESSAGE);
@@ -173,12 +174,12 @@ public class Login extends JFrame {
 										}
 									}
 									else {
-										JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
 									}
 				        	}
 							catch (Exception e2) {
 								// TODO: handle exception
-								JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
 								System.out.println(rs);
 							}    		       
 				}
@@ -187,7 +188,7 @@ public class Login extends JFrame {
 		return btnlogin;
 	}
 	private JButton CLOSE() {
-		JButton btnclose = new JButton("Close");
+		JButton btnclose = new JButton("Đóng");
 		btnclose.addActionListener(new ActionListener() {
 			
 			@Override
@@ -202,7 +203,7 @@ public class Login extends JFrame {
 		return btnclose;
 	}
 	private JButton REFRESH() {
-		JButton btnrefresh = new JButton("Refresh");
+		JButton btnrefresh = new JButton("Thử lại");
 		btnrefresh.addActionListener(new ActionListener() {
 			
 			@Override

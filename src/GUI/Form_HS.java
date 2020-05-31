@@ -71,18 +71,18 @@ public class Form_HS extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Form_HS frame = new Form_HS();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Form_HS frame = new Form_HS();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	
 	/**
 	 * Create the frame.
@@ -91,31 +91,36 @@ public class Form_HS extends JFrame {
 	private JButton btndangXuat;
 	
 	public Form_HS() throws ClassNotFoundException {
-		
+		super("Học sinh");
+		setBackground(new Color(0, 0, 0));
+		//setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 669, 350);
+		setBounds(100, 100, 685, 360);
+		setResizable(false);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 0, 255));
+		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(0, 0, 653, 38);
+		panel_1.setBackground(new Color(255, 255, 0));
+		panel_1.setBounds(10, 11, 659, 38);
 		contentPane.add(panel_1);
 
 		panel_1.setBorder(new EmptyBorder(0,500,0,0));
 		panel_1.setLayout(null);
 		
 		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setBackground(SystemColor.controlHighlight);
-		panel_1_1.setBounds(0, 0, 385, 38);
+		panel_1_1.setBackground(new Color(255, 255, 0));
+		panel_1_1.setBounds(10, 0, 375, 38);
 		panel_1.add(panel_1_1);
 		panel_1_1.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setForeground(new Color(0, 0, 0));
+		menuBar.setBackground(new Color(218, 165, 32));
 		menuBar.setBounds(20, 0, 355, 38);
 		panel_1_1.add(menuBar);
 		
@@ -126,21 +131,21 @@ public class Form_HS extends JFrame {
 		menuBar.add(mnEdit);
 		
 		JPanel panel_1_2 = new JPanel();
-		panel_1_2.setBackground(SystemColor.controlHighlight);
-		panel_1_2.setBounds(383, 0, 270, 38);
+		panel_1_2.setBackground(new Color(0, 191, 255));
+		panel_1_2.setBounds(385, 0, 239, 38);
 		panel_1.add(panel_1_2);
 		panel_1_2.setLayout(null);
 		
 		JLabel lblXinChao = new JLabel("Xin chào:");
-		lblXinChao.setForeground(SystemColor.desktop);
+		lblXinChao.setForeground(new Color(0, 0, 0));
 		lblXinChao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblXinChao.setBounds(27, 0, 70, 38);
 		panel_1_2.add(lblXinChao);
 		
 		JLabel label = new JLabel("");
-		label.setForeground(SystemColor.desktop);
+		label.setForeground(new Color(0, 0, 0));
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(95, 0, 165, 38);
+		label.setBounds(95, 0, 144, 38);
 		
 		panel_1_2.add(label);
 		
@@ -170,8 +175,8 @@ public class Form_HS extends JFrame {
 		}
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.control);
-		panel_2.setBounds(10, 49, 634, 213);
+		panel_2.setBackground(new Color(255, 215, 0));
+		panel_2.setBounds(10, 47, 659, 236);
 		contentPane.add(panel_2);
 		
 		table = new JTable();
@@ -179,41 +184,41 @@ public class Form_HS extends JFrame {
 		panel_2.add(table);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(SystemColor.controlHighlight);
+		panel_3.setBackground(new Color(255, 255, 0));
 		panel_3.setForeground(UIManager.getColor("Button.light"));
-		panel_3.setBounds(0, 273, 653, 38);
+		panel_3.setBounds(10, 282, 659, 38);
 		contentPane.add(panel_3);
 		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnXemThiKha = new JButton("Xem thời khóa biểu");
-		panel_3.add(btnXemThiKha);
+		JButton btnTKB = new JButton("Xem thời khóa biểu");
+		panel_3.add(btnTKB);
 		
-		JButton btnXemimHc = new JButton("Xem điểm học kì");
-		panel_3.add(btnXemimHc);
+		JButton btnDiem = new JButton("Xem điểm học kì");
+		panel_3.add(btnDiem);
 		
-		JButton btnXemHcPh = new JButton("Xem học phí");
-		panel_3.add(btnXemHcPh);
+		JButton btnHocPhi = new JButton("Xem học phí");
+		panel_3.add(btnHocPhi);
 		
 		JButton btnXemTT = new JButton("Xem thông tin cá nhân");
 		btnXemTT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-		        		Class.forName("com.mysql.jdbc.Driver");
-						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-		        		PreparedStatement ps = conn.prepareStatement("SELECT * FROM infomation WHERE UserID=(SELECT UserID FROM user WHERE userName=? AND password=?)");
-			        	ps.setString(1, GUI.Login.txtUserName.getText());
-						ps.setString(2, pass);
-						ResultSet rs = ps.executeQuery();
+//		        		Class.forName("com.mysql.jdbc.Driver");
+//						Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+//		        		PreparedStatement ps = conn.prepareStatement("SELECT * FROM infomation WHERE UserID=(SELECT UserID FROM user WHERE userName=? AND password=?)");
+//			        	ps.setString(1, GUI.Login.txtUserName.getText());
+//						ps.setString(2, pass);
+//						ResultSet rs = ps.executeQuery();
 	//					UserBLL userBLL = new UserBLL();
 	//					UserDTO userDTO = new UserDTO(txtUserName.getText(), strPass);
 	//					rs = userBLL.LoGin(userDTO);
-						if(rs.next()){
-							JTable table = new JTable();
-							
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
+//						if(rs.next()){
+							ThongTin_HS xemTT = new ThongTin_HS();
+							xemTT.setVisible(true);
+//						}
+//						else {
+//							JOptionPane.showMessageDialog(null, "Tài khoản không tồn tại.", "Error", JOptionPane.ERROR_MESSAGE);
+//						}
         	}
 			catch (Exception e2) {
 				// TODO: handle exception
